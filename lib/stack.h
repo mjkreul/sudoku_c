@@ -8,20 +8,37 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX_ITEMS 10
+#define MAX_ITEMS 100
 
-typedef struct Stack_t{
+//typedef struct node_t node;
+typedef struct Stack_t Stack;
+
+//struct node_t{
+//    node* next;
+//    node* prev;
+//    void* data;
+//};
+
+struct Stack_t{
     void** items;
     int top;
+//    node* top;
+//    node* head;
+    int numItems;
     int maxItems;
-} Stack;
+
+};
+
+
 
 Stack* createStack(int);
 
-void push(void *, Stack*);
+int push(void *, Stack*);
 
 void* pop(Stack*);
 
 void increaseSize(Stack*);
+
+void printStack(Stack*);
 
 #endif //SUDOKU_C_STACK_H

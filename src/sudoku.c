@@ -14,6 +14,7 @@ int** solve(int** board){
     int** returnBoard = copyBoard(board);
     int i = 0, j = 0, k = 1;
     Stack * previousSolvedIndex = createStack(sizeof(Index*));
+    if(previousSolvedIndex == NULL) printf("stack did not init\n");
     while (i < 9) {
         j = 0;
         while (j < 9) {
@@ -31,7 +32,6 @@ int** solve(int** board){
                     // move to the next tile and set k back to 1
                     j++;
                     k = 1;
-                    printBoard(returnBoard);
                 }
                     // otherwise, we need to check the next number at that particular index
                 else {
@@ -62,7 +62,9 @@ int** solve(int** board){
         //once we've gotten past all of the columns and "solved them"
         i++;
     }
-
+//    free(previousSolvedIndex->items);
+    // Don't forget to free the memory you allocated!
+    free(previousSolvedIndex);
     return returnBoard;
 }
 /**
@@ -169,5 +171,6 @@ int** buildBoard(char * filename){
         }
         i++;
     }
+    fclose(file);
     return toRet;
 }

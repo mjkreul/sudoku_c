@@ -53,12 +53,16 @@ int main() {
             "sudokus/s16.txt",
     };
 
-    int** board1a = buildBoard(strings[0]);
+    for(int i = 0; i < 46; i++){
+        int** board1a = buildBoard(strings[i]);
+        printf("solving %s board\n", strings[i]);
+        printBoard(board1a);
+        int** solved1a = solve(board1a);
+        printBoard(solved1a);
+        printf("Solved %d boards\n", i + 1);
+        free(board1a);
+        free(solved1a);
+    }
 
-    printBoard(board1a);
-
-    int** solved1a = solve(board1a);
-
-    printBoard(solved1a);
 
 }

@@ -12,11 +12,10 @@
 Stack* createStack(int itemSize){
     Stack * toRet = malloc(sizeof(Stack *));
     if (toRet == NULL) return NULL;
-
-//    toRet->items = (void**) malloc(itemSize * MAX_ITEMS);
+    toRet->items = (void**) malloc(itemSize * MAX_ITEMS);
     toRet->maxItems = MAX_ITEMS;
-    toRet->top = 0;
-
+    toRet->numItems = 0;
+    toRet->top = -1;
     return toRet;
 }
 
@@ -25,17 +24,19 @@ Stack* createStack(int itemSize){
  * @param item
  * @param stack
  */
-void push(void * item, Stack* stack){
+int push(void * item, Stack* stack){
     //If the stack has no items added to it
-    if (stack->top == 0) {
+    if (stack->numItems == 0) {
         stack->items = malloc(sizeof(item) * MAX_ITEMS);
     }
     // if the stack size is greater than 3/4 of the max items
-    if (stack->top >= (int) stack->maxItems * 0.75){
+    if (stack->numItems >= (int) stack->maxItems * 0.75){
         increaseSize(stack);
     }
-    stack->items[stack->top] = item;
     stack->top++;
+    stack->items[stack->top] = item;
+    stack->numItems++;
+    return 1;
 }
 
 /**
@@ -44,11 +45,16 @@ void push(void * item, Stack* stack){
  * @return
  */
 void* pop(Stack* stack){
-    if(stack->top == 0){
+    if(stack->numItems == 0){//stack->top == 0){
         return NULL;
     }
+//    node* toRet = stack->items[stack->top];
     void* toRet = stack->items[stack->top];
     stack->top--;
+    stack->numItems--;
+//    void * toRet = stack->head->prev->data;
+//    stack->head->prev = stack->head->prev->prev;
+
     return toRet;
 }
 
@@ -57,12 +63,19 @@ void* pop(Stack* stack){
  * @param stack
  */
 void increaseSize(Stack * stack){
-    if(stack->top >= stack->maxItems){
+//    if(stack->numItems >= stack->maxItems){
         stack->maxItems = stack->maxItems * 2;
         void** newItemsArr = malloc(sizeof(stack->items[stack->top]) * stack->maxItems);
         for (int i = 0; i < stack->top; i++) {
             newItemsArr[i] = stack->items[i];
         }
+        free(stack->items);
         stack->items = newItemsArr;
-    }
+//    }
 }
+
+//void printStack(Stack* stack){
+//    for(int i = 0; i < stack->top + 1; i++){
+//        printf()
+//    }
+//}
