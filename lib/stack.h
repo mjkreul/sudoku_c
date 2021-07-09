@@ -1,7 +1,9 @@
 //
 // Created by Matt Kreul on 7/3/21.
 //
-
+/**
+ * This is an implementation of an array based stack.
+ */
 #ifndef SUDOKU_C_STACK_H
 #define SUDOKU_C_STACK_H
 
@@ -13,23 +15,16 @@
 //typedef struct node_t node;
 typedef struct Stack_t Stack;
 
-//struct node_t{
-//    node* next;
-//    node* prev;
-//    void* data;
-//};
-
 struct Stack_t{
+    // void pointers to hold any type of value
     void** items;
+    // index of where the last item is
     int top;
-//    node* top;
-//    node* head;
+    // number of items in the stack
     int numItems;
+    // the maximum number of items that can be placed into the stack
     int maxItems;
-
 };
-
-
 
 Stack* createStack(int);
 
@@ -39,6 +34,8 @@ void* pop(Stack*);
 
 void increaseSize(Stack*);
 
-void printStack(Stack*);
+
+//For debugging purposes
+//void printStack(Stack*);
 
 #endif //SUDOKU_C_STACK_H

@@ -11,13 +11,16 @@
 #include <stdlib.h>
 //#include <math.h>
 
+
 typedef struct Index_t{
     int i;
     int j;
 } Index;
 
 int** solve(int**);
+
 int validMove(int, int, int, int**);
+
 void printBoard(int**);
 
 int** copyBoard(int**);

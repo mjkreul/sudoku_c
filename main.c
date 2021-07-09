@@ -1,9 +1,17 @@
+//
+// Created by Matt Kreul on 7/3/21.
+//
+
+
 #include <stdio.h>
 #include "lib/sudoku.h"
 #include <string.h>
 
-
 int main() {
+    // Strings of all of the sudoku puzzles to solve.  These were taken from Timo Mantere's & Janne Koljonen's sudoku
+    // solving page here: http://lipas.uwasa.fi/~timan/sudoku/ not sure the best way to cite... Their work involved much
+    // more extensive research into evolutionary algorithm's that are much too sophisticated for this.  Their text files
+    // of sudoku's were very helpful in providing easy testing boards for my algorithm.
     char* strings[] = {
             "sudokus/s01a.txt",
             "sudokus/s01b.txt",
@@ -53,6 +61,7 @@ int main() {
             "sudokus/s16.txt",
     };
 
+    // Run through all of the boards and print them out before and after being solved.
     for(int i = 0; i < 46; i++){
         int** board1a = buildBoard(strings[i]);
         printf("solving %s board\n", strings[i]);
