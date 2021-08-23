@@ -1,7 +1,4 @@
-# Lab 9 Makefile
-# AerE 361
-# Professor Matthew E. Nelson
-# SOLUTION
+
 
 IDIR =./include
 CC=gcc
