@@ -12,6 +12,7 @@ int main() {
     // solving page here: http://lipas.uwasa.fi/~timan/sudoku/ not sure the best way to cite... Their work involved much
     // more extensive research into evolutionary algorithm's that are much too sophisticated for this.  Their text files
     // of sudoku's were very helpful in providing easy testing boards for my algorithm.
+
     char* strings[] = {
             "sudokus/s01a.txt",
             "sudokus/s01b.txt",
@@ -63,15 +64,28 @@ int main() {
 
     // Run through all of the boards and print them out before and after being solved.
     for(int i = 0; i < 46; i++){
-        int** board1a = buildBoard(strings[i]);
+        int** board = buildBoard(strings[i]);
+        if(board ==NULL) {
+            fprintf(stderr, "\n\n Board creation error \n\n");
+            break;
+        }
         printf("solving %s board\n", strings[i]);
-        printBoard(board1a);
-        int** solved1a = solve(board1a);
-        printBoard(solved1a);
+        printBoard(board);
+        int** solved = solve(board);
+        if(solved == NULL){
+            fprintf(stderr, "\n\n board could not be initialized\n\n");
+            break;
+        }
+        printBoard(solved);
         printf("Solved %d boards\n", i + 1);
-        free(board1a);
-        free(solved1a);
+//        for(int j = 0; j < 9; j ++){
+//            int * tempBoard = board[i];
+//            int * tempSolved = solved[i];
+//            free(tempBoard);
+//            free(tempSolved);
+//        }
+        free(board);
+        free(solved);
+
     }
-
-
 }
