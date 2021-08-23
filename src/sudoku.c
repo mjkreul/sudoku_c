@@ -169,7 +169,7 @@ int** copyBoard(int** board){
     for(int i = 0; i < 9; i++){
         toRet[i] = (int*) malloc(sizeof(int) * 9);
     }
-    printf("Malloced board\n");
+//    printf("Malloced board\n");
 
     //copy over the values from the original board to the new one
     for(int i = 0; i < 9; i++){
