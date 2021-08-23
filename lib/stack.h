@@ -14,18 +14,6 @@
 
 //typedef struct node_t node;
 typedef struct Stack_t Stack;
-typedef struct Index_t Index;
-
-/**
- * This is a struck that simply saves two integers.  This is used for the stack in order to track the last solved
- * sudoku box in case it gets stuck.  These integers are saved such that "i" is the row and "j" is the column
- * coordinate of the board
- */
-struct Index_t{
-    int i;
-    int j;
-};
-
 
 /**
  * This is a stack struct that will hold most of our data.  A stack works in a Last In First Out (LIFO) order of
