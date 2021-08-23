@@ -20,13 +20,17 @@
  *  solved board
  */
 int** solve(int** board){
+    printf("Beginning to solve board\n");
     // create a copy of the sudoku board
     int** returnBoard = copyBoard(board);
+    //TODO: add check here to make sure sudoku board is valid
     int i = 0, j = 0, k = 1;
     // initialize the previously solved indices
-    Stack * previousSolvedIndex = createStack(sizeof(Index*));
-
-    if(previousSolvedIndex == NULL) printf("stack did not init\n");
+    Stack * previousSolvedIndex = createStack(sizeof(Index ));
+    if(previousSolvedIndex == NULL){
+        fprintf(stderr, "\n\nstack did not init\n\n");
+        return NULL;
+    }
 
     while (i < 9) {
         j = 0;
@@ -36,7 +40,7 @@ int** solve(int** board){
                 // Check to see if k is a valid choice
                 if (validMove(i, j, k, returnBoard)) {
                     // if it is a valid choice then save this index as the last "correct" tile
-                    Index * tempIndex = malloc(sizeof(Index*));
+                    Index * tempIndex = (Index *) malloc(sizeof(Index));
                     tempIndex->i = i;
                     tempIndex->j = j;
                     push(tempIndex, previousSolvedIndex);
@@ -57,13 +61,13 @@ int** solve(int** board){
                         //go back to previously "solved" indices
                         //i = row of prevSolvedBox
                         //j = col of prevSolvedBox
-                        Index * tempIndex = pop(previousSolvedIndex);
+                        Index * tempIndex = (Index *) malloc(sizeof(Index));
+                        pop(previousSolvedIndex, tempIndex);
                         i = tempIndex->i;
                         j = tempIndex->j;
                         k = returnBoard[i][j] + 1;
                         // reset this value to 0 so that we can check it again
                         returnBoard[i][j] = 0;
-//                        free(tempIndex);
                     }
                 }
             }
@@ -77,7 +81,7 @@ int** solve(int** board){
         i++;
     }
     // Don't forget to free the memory you allocated!
-    free(previousSolvedIndex);
+    freeStack(previousSolvedIndex);
     return returnBoard;
 }
 
@@ -98,7 +102,7 @@ int** solve(int** board){
  *  1 if move is valid, 0 if not
  */
 int validMove(int i, int j, int k, int** board){
-    //This figures out which "square"
+    //This figures out which "square" the algorithm needs to check
     int row = ((i) / 3 + 1) * 3;
     int col = ((j) / 3 + 1) * 3;
     //Check the square
@@ -123,7 +127,7 @@ int validMove(int i, int j, int k, int** board){
             return 0;
         }
     }
-
+    //return true if it passes all of the tests
     return 1;
 }
 
@@ -160,15 +164,21 @@ void printBoard(int** board){
  *  copied board
  */
 int** copyBoard(int** board){
-    int** toRet = (int**) malloc(sizeof(int**) * 9);
+    // allocate memory for the board
+    int** toRet = (int**) malloc(sizeof(int*) * 9);
     for(int i = 0; i < 9; i++){
-        toRet[i] = (int*) malloc(sizeof(int*) * 9);
+        toRet[i] = (int*) malloc(sizeof(int) * 9);
     }
+    printf("Malloced board\n");
+
+    //copy over the values from the original board to the new one
     for(int i = 0; i < 9; i++){
         for (int j = 0; j < 9; ++j) {
             toRet[i][j] = board[i][j];
         }
     }
+
+    // return the new board
     return toRet;
 }
 
@@ -185,6 +195,11 @@ int** copyBoard(int** board){
 int** buildBoard(char * filename){
     // open the file
     FILE * file = fopen(filename, "r");
+    if(file == NULL){
+        fprintf(stderr, "\n\n OPEN FILE ERROR \n\n");
+        fclose(file);
+        return NULL;
+    }
     // create the return int**
     int ** toRet = (int**) malloc(sizeof(int*) * 9);
     for(int i = 0; i < 9; i++){
