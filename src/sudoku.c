@@ -62,7 +62,7 @@ int** solve(int** board){
                         //i = row of prevSolvedBox
                         //j = col of prevSolvedBox
                         Index * tempIndex = (Index *) malloc(sizeof(Index));
-                        pop(previousSolvedIndex, tempIndex);
+                        pop(tempIndex, previousSolvedIndex);
                         i = tempIndex->i;
                         j = tempIndex->j;
                         k = returnBoard[i][j] + 1;
