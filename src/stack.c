@@ -84,7 +84,7 @@ int push(void * item, Stack* stack){
  * @return
  *  last item added
  */
-int pop(Stack* stack, void* target){
+int pop(void* target, Stack* stack){
     // check to see if there are any items in the stack
     if(stack->top < 0){//stack->top == 0){
         return 0;

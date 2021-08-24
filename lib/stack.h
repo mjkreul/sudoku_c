@@ -41,7 +41,7 @@ Stack* createStack(int);
 
 int push(void *, Stack*);
 
-int pop(Stack*, void *);
+int pop(void *, Stack*);
 
 void increaseSize(Stack*);
 

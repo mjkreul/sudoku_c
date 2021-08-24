@@ -1,0 +1,8 @@
+# ignore any object files
+*.o
+
+# Executables
+Sudoku
+
+# Other files
+CMakeLists.txt
